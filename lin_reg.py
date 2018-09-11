@@ -7,6 +7,7 @@ class LinearRegression:
 
     def fit(self, X, y, lr=0.01, n_iter=100):
         # random initialization
+        np.random.seed(42)
         self.weights = np.random.rand(X.shape[1], 1)
         self.biases = np.random.rand(1, 1)
         for i in range(n_iter):
@@ -20,7 +21,7 @@ class LinearRegression:
 
     def gd(self, X, y, lr):
         y_pred = np.dot(X, self.weights)  + self.biases
-        dJdb = 2 * (y_pred - y)
-        dJdw = np.dot(X, dJdb.T).mean(axis=1)
-        self.weights -= lr * dJdw.mean()
-        self.biases -= lr * dJdb.mean()
+        db = 2 * (y_pred - y)
+        dw = np.dot(X, db.T).mean(axis=1)
+        self.weights -= lr * dw.mean()
+        self.biases -= lr * db.mean()
